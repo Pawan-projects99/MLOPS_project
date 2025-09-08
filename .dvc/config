@@ -1,0 +1,4 @@
+[core]
+    remote = origin
+['remote "origin"']
+    url = s3://your-mlops-bucket-0729/student-performance-dvc

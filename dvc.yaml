@@ -1,0 +1,49 @@
+stages:
+  data_ingestion:
+    cmd: python src/components/data_injestion.py
+    deps:
+    - src/components/data_injestion.py
+    - data/stud.csv
+    outs:
+    - artifacts/train.csv
+    - artifacts/test.csv
+    params:
+    - data_ingestion.test_size
+    - data_ingestion.random_state
+
+  data_transformation:
+    cmd: python src/components/data_transformation.py
+    deps:
+    - src/components/data_transformation.py
+    - artifacts/train.csv
+    - artifacts/test.csv
+    outs:
+    - artifacts/preprocessor.pkl
+    params:
+    - data_transformation.numerical_columns
+    - data_transformation.categorical_columns
+
+  model_training:
+    cmd: python src/components/model_trainer.py
+    deps:
+    - src/components/model_trainer.py
+    - artifacts/train.csv
+    - artifacts/preprocessor.pkl
+    outs:
+    - artifacts/model.pkl
+    metrics:
+    - metrics/train_metrics.json
+    params:
+    - model_training.models
+
+  model_evaluation:
+    cmd: python src/pipeline/training_pipeline.py --evaluate
+    deps:
+    - artifacts/model.pkl
+    - artifacts/test.csv
+    - artifacts/preprocessor.pkl
+    metrics:
+    - metrics/eval_metrics.json
+    plots:
+    - plots/confusion_matrix.png
+    - plots/feature_importance.png
