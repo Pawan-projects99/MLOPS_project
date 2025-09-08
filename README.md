@@ -11,7 +11,7 @@ Test preparation course completion
 Reading and writing scores
 
 🏗️ MLOps Architecture
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+```text
 │   Data Source   │ -> │  DVC Pipeline   │ -> │  MLflow Track   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
@@ -25,6 +25,7 @@ Reading and writing scores
 │ Docker + AWS    │
 │   Deployment    │
 └─────────────────┘
+```
 🚀 Quick Start
 Prerequisites
 
@@ -53,7 +54,6 @@ make train
 # Start API server
 make serve
 
-# Visit http://localhost:8000/docs for API documentation
 3. Make a Prediction
 bashcurl -X POST "http://localhost:8000/predict" \
      -H "Content-Type: application/json" \
